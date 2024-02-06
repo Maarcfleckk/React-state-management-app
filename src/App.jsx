@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Counter } from "./Counter.jsx";
+import { Total } from "./Total.jsx";
 const App = () => {
-  // save each button click in its own state
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
@@ -24,7 +24,8 @@ const App = () => {
       return prevBad;
     });
   };
-
+  let total = good + neutral + bad;
+  
   return (
     <div>
       <h1>give feedback</h1>
@@ -35,6 +36,7 @@ const App = () => {
       <Counter counter={good} name={"good"} />
       <Counter counter={neutral} name={"neutral"} />
       <Counter counter={bad} name={"bad"} />
+      <Total total={total} />
     </div>
   );
 };
