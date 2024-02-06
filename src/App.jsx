@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Counter } from "./Counter.jsx";
 import { Total } from "./Total.jsx";
+import { Average } from "./Average.jsx";
+import { Positive } from "./Positive.jsx";
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -25,7 +27,8 @@ const App = () => {
     });
   };
   let total = good + neutral + bad;
-  
+  let result = good - bad;
+
   return (
     <div>
       <h1>give feedback</h1>
@@ -37,6 +40,8 @@ const App = () => {
       <Counter counter={neutral} name={"neutral"} />
       <Counter counter={bad} name={"bad"} />
       <Total total={total} />
+      <Average total={total} result={result} />
+      <Positive total={total} good={good}/>
     </div>
   );
 };
