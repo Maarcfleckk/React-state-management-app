@@ -3,6 +3,7 @@ import { Counter } from "./Counter.jsx";
 import { Total } from "./Total.jsx";
 import { Average } from "./Average.jsx";
 import { Positive } from "./Positive.jsx";
+import { Statistics } from "./Statistics.jsx";
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -36,12 +37,13 @@ const App = () => {
       <button onClick={handleIncrementNeutral}>neutral</button>
       <button onClick={handleIncrementBad}>bad</button>
       <h1>statistics</h1>
-      <Counter counter={good} name={"good"} />
-      <Counter counter={neutral} name={"neutral"} />
-      <Counter counter={bad} name={"bad"} />
-      <Total total={total} />
-      <Average total={total} result={result} />
-      <Positive total={total} good={good}/>
+      <Statistics
+        good={good}
+        neutral={neutral}
+        bad={bad}
+        total={total}
+        result={result}
+      />
     </div>
   );
 };
