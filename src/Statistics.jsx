@@ -4,6 +4,9 @@ import { Average } from "./Average.jsx";
 import { Positive } from "./Positive.jsx";
 
 export const Statistics = ({ good, neutral, bad, total, result }) => {
+  if (total === 0) {
+    return <p>no feedback given</p>;
+  }
   return (
     <div>
       <Counter counter={good} name={"good"} />
