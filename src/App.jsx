@@ -1,9 +1,6 @@
 import { useState } from "react";
-import { Counter } from "./Counter.jsx";
-import { Total } from "./Total.jsx";
-import { Average } from "./Average.jsx";
-import { Positive } from "./Positive.jsx";
 import { Statistics } from "./Statistics.jsx";
+import { Button } from "./Button.jsx";
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -33,9 +30,9 @@ const App = () => {
   return (
     <div>
       <h1>give feedback</h1>
-      <button onClick={handleIncrementGood}>good</button>
-      <button onClick={handleIncrementNeutral}>neutral</button>
-      <button onClick={handleIncrementBad}>bad</button>
+      <Button callback={handleIncrementGood} text={"good"} />
+      <Button callback={handleIncrementNeutral} text={"neutral"} />
+      <Button callback={handleIncrementBad} text={"bad"} />
       <h1>statistics</h1>
       <Statistics
         good={good}
