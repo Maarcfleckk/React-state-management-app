@@ -5,7 +5,6 @@ const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
-  const [selectedAnecdote, setAnecdote] = useState(0);
   const anecdotes = [
     "If it hurts, do it more often.",
     "Adding manpower to a late software project makes it later!",
@@ -16,6 +15,7 @@ const App = () => {
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.",
     "The only way to go fast, is to go well.",
   ];
+  const [selectedAnecdote, setAnecdote] = useState(Math.floor(Math.random() * anecdotes.length));
   const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
   const [mostVotes, setMostVotes] = useState(0);
 
@@ -50,13 +50,10 @@ const App = () => {
     setVotes(updatedVotes);
   };
   const handleMostVotes = () => {
-    let mostVoted = 0;
-    for (let index = 0; index < votes.length; index++) {
-      if (votes[index] > votes[mostVoted]) {
-        mostVoted = index;
-      }
-    }
-    setMostVotes(mostVoted);
+    const maxVotesIndex = votes.reduce((previousVote, currentVote, currentIndex) => {
+      return currentVote > votes[previousVote] ? currentIndex : previousVote;
+    }, 0);
+    setMostVotes(maxVotesIndex);
   };
 
   let total = good + neutral + bad;
