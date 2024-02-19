@@ -15,7 +15,9 @@ const App = () => {
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.",
     "The only way to go fast, is to go well.",
   ];
-  const [selectedAnecdote, setAnecdote] = useState(Math.floor(Math.random() * anecdotes.length));
+  const [selectedAnecdote, setAnecdote] = useState(
+    Math.floor(Math.random() * anecdotes.length)
+  );
   const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
   const [mostVotes, setMostVotes] = useState(0);
 
@@ -47,25 +49,35 @@ const App = () => {
     const updatedVotes = votes.map((vote, index) =>
       index === selectedAnecdote ? vote + 1 : vote
     );
-    setVotes(updatedVotes);
+    setVotes((prevVote) => {
+      prevVote = updatedVotes;
+      return prevVote;
+    });
   };
   const handleMostVotes = () => {
-    const maxVotesIndex = votes.reduce((previousVote, currentVote, currentIndex) => {
-      return currentVote > votes[previousVote] ? currentIndex : previousVote;
-    }, 0);
-    setMostVotes(maxVotesIndex);
+    const maxVotesIndex = votes.reduce(
+      (previousVote, currentVote, currentIndex) => {
+        return currentVote > votes[previousVote] ? currentIndex : previousVote;
+      },
+      0
+    );
+    setMostVotes((prevVoteIndex) => {
+      prevVoteIndex = maxVotesIndex;
+      return prevVoteIndex;
+    });
   };
 
   let total = good + neutral + bad;
   let result = good - bad;
   return (
-    <div>
+    <>
+      <h1>react state management app</h1>
       <div>
-        <h1>give feedback</h1>
+        <h2>give feedback</h2>
         <Button callback={handleIncrementGood} text={"good"} />
         <Button callback={handleIncrementNeutral} text={"neutral"} />
         <Button callback={handleIncrementBad} text={"bad"} />
-        <h1>statistics</h1>
+        <h3>statistics</h3>
         <Statistics
           good={good}
           neutral={neutral}
@@ -75,7 +87,7 @@ const App = () => {
         />
       </div>
       <div>
-        <h1>Anecdote of the day</h1>
+        <h2>Anecdote of the day</h2>
         <p>{anecdotes[selectedAnecdote]}</p>
         <p>has {votes[selectedAnecdote]} votes</p>
         <button
@@ -89,11 +101,11 @@ const App = () => {
         <button onClick={handleRandom}>next anecdote</button>
       </div>
       <div>
-        <h1>Anecdote with most votes</h1>
+        <h3>Anecdote with most votes</h3>
         <p>{anecdotes[mostVotes]}</p>
         <p>has {votes[mostVotes]} votes</p>
       </div>
-    </div>
+    </>
   );
 };
 
