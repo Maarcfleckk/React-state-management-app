@@ -79,7 +79,6 @@ const App = () => {
         <button
           onClick={() => {
             handleVote();
-            handleMostVotes();
           }}
         >
           vote
