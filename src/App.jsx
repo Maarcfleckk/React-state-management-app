@@ -19,7 +19,7 @@ const App = () => {
     Math.floor(Math.random() * anecdotes.length)
   );
   const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
-  const [mostVotes, setMostVotes] = useState(0);
+  const maxVotesIndex = votes.indexOf(Math.max(...votes));
 
   const handleIncrementGood = () => {
     setGood((prevGood) => {
@@ -46,24 +46,10 @@ const App = () => {
     });
   };
   const handleVote = () => {
-    const updatedVotes = votes.map((vote, index) =>
-      index === selectedAnecdote ? vote + 1 : vote
-    );
-    setVotes((prevVote) => {
-      prevVote = updatedVotes;
-      return prevVote;
-    });
-  };
-  const handleMostVotes = () => {
-    const maxVotesIndex = votes.reduce(
-      (previousVote, currentVote, currentIndex) => {
-        return currentVote > votes[previousVote] ? currentIndex : previousVote;
-      },
-      0
-    );
-    setMostVotes((prevVoteIndex) => {
-      prevVoteIndex = maxVotesIndex;
-      return prevVoteIndex;
+    setVotes((prevVotes) => {
+      const newVotes = [...prevVotes];
+      newVotes[selectedAnecdote] += 1;
+      return newVotes;
     });
   };
 
@@ -102,8 +88,8 @@ const App = () => {
       </div>
       <div>
         <h3>Anecdote with most votes</h3>
-        <p>{anecdotes[mostVotes]}</p>
-        <p>has {votes[mostVotes]} votes</p>
+        <p>{anecdotes[maxVotesIndex]}</p>
+        <p>has {votes[maxVotesIndex]} votes</p>
       </div>
     </>
   );
